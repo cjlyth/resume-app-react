@@ -16,7 +16,7 @@ const mongoSchema = new Schema({
   slug: {
     type: String,
     required: false,
-    unique: true,
+    unique: false,
   },
   createdAt: {
     type: Date,
@@ -58,7 +58,7 @@ class UserClass {
 
     if (user) {
       const modifier = {};
-      
+
       if (googleToken.accessToken) {
         modifier.access_token = googleToken.accessToken;
       }

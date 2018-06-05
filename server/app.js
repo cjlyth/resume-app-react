@@ -24,7 +24,7 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
   const server = express();
 
-  // confuring MongoDB session store
+  // configuring MongoDB session store
   const MongoStore = mongoSessionStore(session);
   const sess = {
     name: 'builderbook.sid',
@@ -44,7 +44,7 @@ app.prepare().then(() => {
   server.use(session(sess));
 
   auth({ server, ROOT_URL });
-
+  // TODO: Add API for resume data
   server.get('*', (req, res) => handle(req, res));
 
   // starting express server
