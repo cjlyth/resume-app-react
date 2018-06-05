@@ -8,6 +8,6 @@ yarn_install:
   script:
     - npx yarn install
 
-yarn_install:
+yarn_lint:
   script:
     - npx yarn lint

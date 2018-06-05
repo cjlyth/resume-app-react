@@ -7,7 +7,7 @@
     "start": "node server/app.js",
     "dev": "nodemon server/app.js --watch server",
     "now": "now && now alias && now rm builderbook-boilerplate --safe --yes",
-    "lint": "eslint components pages lib server"
+    "lint": "npx eslint components pages lib server"
   },
   "dependencies": {
     "@material-ui/core": "^1.1.0",
