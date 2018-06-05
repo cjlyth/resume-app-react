@@ -1,13 +1,14 @@
 image: node:8
 
+cache:
+  paths:
+  - node_modules/
+
 before_script:
   - node -v
   - which node
 
-yarn_install:
-  script:
-    - npx yarn install
-
 yarn_lint:
   script:
+    - npx yarn install
     - npx yarn lint
