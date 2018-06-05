@@ -1,16 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
 import Link from 'next/link';
 import Menu from '@material-ui/core/Menu';
 import Avatar from '@material-ui/core/Avatar';
 
-class MenuDrop extends React.Component {
-  static propTypes = {
-    src: PropTypes.string.isRequired,
-    alt: PropTypes.string.isRequired,
-    options: PropTypes.arrayOf(String).isRequired,
-  };
+type Props = {
+  +src: string,
+  +alt: string,
+  +options: Array<string>
+};
 
+class MenuDrop extends PureComponent<Props> {
   state = {
     open: false,
     anchorEl: undefined,
