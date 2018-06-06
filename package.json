@@ -12,17 +12,11 @@
   },
   "dependencies": {
     "@material-ui/core": "^1.1.0",
-    "connect-mongo": "^2.0.1",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
-    "express-session": "^1.15.6",
-    "googleapis": "^29.0.0",
     "lodash": "^4.17.10",
-    "mongoose": "^5.0.17",
     "next": "6.0.4-canary.3",
     "nprogress": "^0.2.0",
-    "passport": "^0.4.0",
-    "passport-google-oauth": "^1.0.0",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-jss": "^8.4.0"
