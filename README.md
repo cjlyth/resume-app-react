@@ -68,7 +68,7 @@ Check out [package.json](https://github.com/builderbook/builderbook/blob/master/
 ├── lib                         # Code available on both client and server
 │   ├── context.js              # Context for Material-UI integration
 │   ├── withAuth.js             # HOC that passes user to pages and more
-│   ├── withLayout.js           # HOC for SSR with Material-UI and more
+│   ├── with-layout.js           # HOC for SSR with Material-UI and more
 ├── pages                       # Pages
 │   ├── login.js                # Login page
 │   ├── _document.js            # Main Document for Next.js pages

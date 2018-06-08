@@ -5,7 +5,7 @@ import React, { PureComponent } from 'react';
 import Head from 'next/head';
 import cowsay from 'cowsay-browser';
 
-import withLayout from '../lib/withLayout';
+import withLayout from '../lib/with-layout';
 
 class Index extends PureComponent {
   static defaultProps = {
