@@ -5,13 +5,15 @@
   "scripts": {
     "build": "next build",
     "start": "node server/app.js",
-    "dev": "nodemon server/app.js --watch server",
+    "dev": "nodemon $NODE_DEBUG_OPTION server/app.js --watch server",
     "now": "now && now alias && now rm builderbook-boilerplate --safe --yes",
     "lint": "npx eslint components pages lib server",
     "flow": "flow"
   },
   "dependencies": {
     "@material-ui/core": "^1.1.0",
+    "cowsay-browser": "^1.1.8",
+    "cross-fetch": "^2.2.1",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "lodash": "^4.17.10",
@@ -19,7 +21,14 @@
     "nprogress": "^0.2.0",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
-    "react-jss": "^8.4.0"
+    "react-jss": "^8.4.0",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
+    "reduxsauce": "^1.0.0",
+    "shortid": "^2.2.8"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.3",

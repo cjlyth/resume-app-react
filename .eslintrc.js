@@ -31,7 +31,7 @@ module.exports = {
     'react/jsx-filename-extension': [
       'error',
       {
-        extensions: ['.js'],
+        extensions: ['.js', '.jsx'],
       },
     ],
   },
