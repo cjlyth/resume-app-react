@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { startClock, serverRenderClock } from '../store';
+import { startClock, serverRenderClock } from '../lib/store';
 import Examples from '../app/examples';
 import withLayout from '../lib/withLayout';
 
