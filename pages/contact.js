@@ -7,7 +7,8 @@ import cowsay from 'cowsay-browser';
 
 import withLayout from '../lib/with-layout';
 
-class Index extends PureComponent {
+type Props = {}
+class Index extends PureComponent<Props> {
   static defaultProps = {
     user: null,
   };

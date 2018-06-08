@@ -1,7 +1,7 @@
 import React, { Fragment, PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { startClock, serverRenderClock } from '../lib/store';
-import Examples from '../app/examples';
+import Summary from '../app/summary';
 
 import withLayout from '../lib/with-layout';
 
@@ -28,7 +28,7 @@ class Index extends PureComponent<Props> {
   render() {
     return (
       <Fragment>
-        <Examples />
+        <Summary />
       </Fragment>
     );
   }
