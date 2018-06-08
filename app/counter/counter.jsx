@@ -1,8 +1,11 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { PureComponent } from 'react';
 import { incrementCount, decrementCount, resetCount } from '../../lib/store';
 
-class Counter extends Component {
+type Props = {
+  dispatch: Function,
+  count: number
+}
+class Counter extends PureComponent<Props> {
   increment = () => {
     const { dispatch } = this.props;
     dispatch(incrementCount());
@@ -31,9 +34,4 @@ class Counter extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  const { count } = state;
-  return { count };
-}
-
-export default connect(mapStateToProps)(Counter);
+export default Counter;
