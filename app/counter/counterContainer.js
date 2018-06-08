@@ -1,33 +1,25 @@
-
 import { connect } from 'react-redux';
 import Counter from './counter';
-// import {decrementCount, incrementCount, resetCount} from "../../lib/store";
+import { decrementCount, incrementCount, resetCount } from '../../lib/store';
 
-// type Props = {
-//   count: number
-// }
-//
-// class CounterContainer extends PureComponent<Props> {
-//   state = { count: [] };
-//   increment = () => {
-//     const { dispatch } = this.props;
-//     dispatch(incrementCount());
-//   }
-//
-//   decrement = () => {
-//     const { dispatch } = this.props;
-//     dispatch(decrementCount());
-//   }
-//
-//   reset = () => {
-//     const { dispatch } = this.props;
-//     dispatch(resetCount());
-//   }
-// }
+const mapDispatchToProps = dispatch => ({
+  increment: () => {
+    dispatch(incrementCount());
+  },
+  decrement: () => {
+    dispatch(decrementCount());
+  },
+  reset: () => {
+    dispatch(resetCount());
+  },
+});
 
 function mapStateToProps(state) {
   const { count } = state;
   return { count };
 }
 
-export default connect(mapStateToProps)(Counter);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Counter);

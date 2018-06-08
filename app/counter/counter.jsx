@@ -1,34 +1,19 @@
 import React, { PureComponent } from 'react';
-import { incrementCount, decrementCount, resetCount } from '../../lib/store';
 
 type Props = {
-  dispatch: Function,
-  count: number
+  +count: number,
+  +increment: Function,
+  +decrement: Function,
+  +reset: Function,
 }
 class Counter extends PureComponent<Props> {
-  increment = () => {
-    const { dispatch } = this.props;
-    dispatch(incrementCount());
-  }
-
-  decrement = () => {
-    const { dispatch } = this.props;
-    dispatch(decrementCount());
-  }
-
-  reset = () => {
-    const { dispatch } = this.props;
-    dispatch(resetCount());
-  }
-
   render() {
-    const { count } = this.props;
     return (
       <div>
-        <h1>Count: <span>{count}</span></h1>
-        <button onClick={this.increment}>+1</button>
-        <button onClick={this.decrement}>-1</button>
-        <button onClick={this.reset}>Reset</button>
+        <h1>Count: <span>{this.props.count}</span></h1>
+        <button onClick={this.props.increment}>+1</button>
+        <button onClick={this.props.decrement}>-1</button>
+        <button onClick={this.props.reset}>Reset</button>
       </div>
     );
   }
