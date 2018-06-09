@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Summary from './summary';
-import { decrementCount, incrementCount, resetCount, fetchSummaryData } from './actions';
+import { fetchSummaryData } from './actions';
 
 const mapDispatchToProps = dispatch => ({
   fetchSummary: () => {
@@ -9,8 +9,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 function mapStateToProps(state) {
-  const { count } = state;
-  return { count };
+  const { summary } = state;
+  console.log(state);
+  return { summary };
 }
 
 export default connect(
