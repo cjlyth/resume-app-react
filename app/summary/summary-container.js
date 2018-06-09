@@ -1,16 +1,10 @@
 import { connect } from 'react-redux';
 import Summary from './summary';
-import { decrementCount, incrementCount, resetCount } from './actions';
+import { decrementCount, incrementCount, resetCount, fetchSummaryData } from './actions';
 
 const mapDispatchToProps = dispatch => ({
-  increment: () => {
-    dispatch(incrementCount());
-  },
-  decrement: () => {
-    dispatch(decrementCount());
-  },
-  reset: () => {
-    dispatch(resetCount());
+  fetchSummary: () => {
+    dispatch(fetchSummaryData());
   },
 });
 
