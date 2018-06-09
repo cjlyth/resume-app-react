@@ -27,14 +27,12 @@ class Summary extends PureComponent<Props> {
   }
   render() {
     const {
-      fetchSummary,
-      summary,
-    } = this.props;
-    const { name, nameSmall, title, titleSmall } = summary.data;
+      name, nameSmall, title, titleSmall, links,
+    } = this.props.summary.data;
     return (
       <Grid container direction="column" justify="space-around" alignItems="center">
         <Grid item xs={4} sm={3} md={2} >
-          {summary.data.links
+          {links
             .filter(link => link.rel === 'avatar')
             .map(({ href }) => (
               <Avatar
@@ -45,7 +43,7 @@ class Summary extends PureComponent<Props> {
               />
             ))}
         </Grid>
-        <Grid item xs={12} alignItems="center">
+        <Grid item xs={12}>
           <Hidden xsDown>
             <Typography variant="title" style={styles.center}>
               {name}
@@ -62,11 +60,6 @@ class Summary extends PureComponent<Props> {
               {titleSmall}
             </Typography>
           </Hidden>
-
-        </Grid>
-        <Grid xs={12}>
-          <button onClick={fetchSummary}>Load</button>
-          <pre>{JSON.stringify(summary, undefined, 2)}</pre>
         </Grid>
       </Grid>
     );
