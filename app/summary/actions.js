@@ -1,8 +1,14 @@
 import axios from 'axios';
-import type { Dispatch, ThunkAction } from '../../lib/types';
+import type { Dispatch, ThunkAction, ReduxState, GetState } from '../../lib/types';
+
 
 const API_URI_BASE = 'https://cjlyth.github.io/resume-data/v1';
 const API_URI = '/summary.json';
+
+const shouldFetchSummary = (s: ReduxState): boolean => {
+  return (s.summary.readyStatus !== 'SUMMARY_SUCCESS' &&
+          s.summary.readyStatus !== 'SUMMARY_REQUESTING');
+};
 
 export const fetchSummaryData = (
   summaryUri: string = API_URI,
@@ -11,11 +17,18 @@ export const fetchSummaryData = (
   dispatch({ type: 'SUMMARY_REQUESTING', summaryUri });
   try {
     const { data } = await axios.get(`${URL_BASE}/${summaryUri}`);
-    /* istanbul ignore next */
     dispatch({ type: 'SUMMARY_SUCCESS', summaryUri, data });
-
   } catch (err) {
-    /* istanbul ignore next */
     dispatch({ type: 'SUMMARY_FAILURE', summaryUri, err: err.message });
   }
+};
+
+export const fetchSummaryIfNeeded = (): ThunkAction => (
+  dispatch: Dispatch,
+  getState: GetState,
+) => {
+  if (shouldFetchSummary(getState())) {
+    return dispatch(fetchSummaryData());
+  }
+  return null;
 };

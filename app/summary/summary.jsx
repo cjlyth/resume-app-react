@@ -1,9 +1,10 @@
 // @flow
-import React, { PureComponent } from 'react';
+import React, { Fragment, PureComponent } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
+import Head from 'next/head';
 
 import config from '../../lib/config';
 import { styleSummaryAvatar } from '../../lib/SharedStyles';
@@ -30,31 +31,37 @@ class Summary extends PureComponent<Props> {
       name, nameSmall, title, titleSmall, links,
     } = this.props.summary.data;
     return (
-      <Grid container justify="space-around" alignItems="center" spacing={24}>
-        <Grid xs={12}>&nbsp;</Grid>
-        <Grid item xs={4} sm={3} md={2} >
-          {links
-            .filter(link => link.rel === 'avatar')
-            .map(({ href }) => (
-              <Avatar
-                style={styleSummaryAvatar}
-                key={`${name}-logo`}
-                src={`${config.app.resumeDataAPIUrl}/${href}`}
-                alt={name}
-              />
-            ))}
+      <Fragment>
+        <Head>
+          <title>{nameSmall} - Resume</title>
+          <meta name="description" content="description for indexing bots" />
+        </Head>
+        <Grid container justify="space-around" alignItems="center" spacing={24}>
+          <Grid item xs={12}>&nbsp;</Grid>
+          <Grid item xs={4} sm={3} md={2} >
+            {links
+              .filter(link => link.rel === 'avatar')
+              .map(({ href }) => (
+                <Avatar
+                  style={styleSummaryAvatar}
+                  key={`${name}-logo`}
+                  src={`${config.app.resumeDataAPIUrl}/${href}`}
+                  alt={name}
+                />
+              ))}
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="headline" style={styles.center}>
+              <Hidden xsDown>{name}</Hidden>
+              <Hidden smUp>{nameSmall}</Hidden>
+            </Typography>
+            <Typography variant="subheading" style={styles.center}>
+              <Hidden xsDown>{title}</Hidden>
+              <Hidden smUp>{titleSmall}</Hidden>
+            </Typography>
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <Typography variant="headline" style={styles.center}>
-            <Hidden xsDown>{name}</Hidden>
-            <Hidden smUp>{nameSmall}</Hidden>
-          </Typography>
-          <Typography variant="subheading" style={styles.center}>
-            <Hidden xsDown>{title}</Hidden>
-            <Hidden smUp>{titleSmall}</Hidden>
-          </Typography>
-        </Grid>
-      </Grid>
+      </Fragment>
     );
   }
 }

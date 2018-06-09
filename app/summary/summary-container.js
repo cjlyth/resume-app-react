@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import Summary from './summary';
-import { fetchSummaryData } from './actions';
+import { fetchSummaryIfNeeded } from './actions';
 
 const mapDispatchToProps = dispatch => ({
   fetchSummary: () => {
-    dispatch(fetchSummaryData());
+    dispatch(fetchSummaryIfNeeded());
   },
 });
 
