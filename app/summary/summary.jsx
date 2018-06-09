@@ -30,7 +30,8 @@ class Summary extends PureComponent<Props> {
       name, nameSmall, title, titleSmall, links,
     } = this.props.summary.data;
     return (
-      <Grid container direction="column" justify="space-around" alignItems="center">
+      <Grid container justify="space-around" alignItems="center" spacing={24}>
+        <Grid xs={12}>&nbsp;</Grid>
         <Grid item xs={4} sm={3} md={2} >
           {links
             .filter(link => link.rel === 'avatar')
@@ -44,22 +45,14 @@ class Summary extends PureComponent<Props> {
             ))}
         </Grid>
         <Grid item xs={12}>
-          <Hidden xsDown>
-            <Typography variant="title" style={styles.center}>
-              {name}
-            </Typography>
-            <Typography variant="subheading" style={styles.center}>
-              {title}
-            </Typography>
-          </Hidden>
-          <Hidden smUp>
-            <Typography variant="title" style={styles.center}>
-              {nameSmall}
-            </Typography>
-            <Typography variant="subheading" style={styles.center}>
-              {titleSmall}
-            </Typography>
-          </Hidden>
+          <Typography variant="headline" style={styles.center}>
+            <Hidden xsDown>{name}</Hidden>
+            <Hidden smUp>{nameSmall}</Hidden>
+          </Typography>
+          <Typography variant="subheading" style={styles.center}>
+            <Hidden xsDown>{title}</Hidden>
+            <Hidden smUp>{titleSmall}</Hidden>
+          </Typography>
         </Grid>
       </Grid>
     );

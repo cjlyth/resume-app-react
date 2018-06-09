@@ -10,7 +10,6 @@ const mapDispatchToProps = dispatch => ({
 
 function mapStateToProps(state) {
   const { summary } = state;
-  console.log(state);
   return { summary };
 }
 
