@@ -5,10 +5,10 @@ import type { Dispatch, ThunkAction, ReduxState, GetState } from '../../lib/type
 const API_URI_BASE = 'https://cjlyth.github.io/resume-data/v1';
 const API_URI = '/employers.json';
 
-const shouldFetchEmployers = (s: ReduxState): boolean => {
-  return (s.employers.readyStatus !== 'EMPLOYERS_SUCCESS' &&
-          s.employers.readyStatus !== 'EMPLOYERS_REQUESTING');
-};
+const shouldFetchEmployers = (s: ReduxState): boolean => (
+  s.employers.readyStatus !== 'EMPLOYERS_SUCCESS' &&
+  s.employers.readyStatus !== 'EMPLOYERS_REQUESTING'
+);
 
 export const fetchEmployersData = (
   employersUri: string = API_URI,

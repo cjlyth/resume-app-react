@@ -5,10 +5,10 @@ import type { Dispatch, ThunkAction, ReduxState, GetState } from '../../lib/type
 const API_URI_BASE = 'https://cjlyth.github.io/resume-data/v1';
 const API_URI = '/summary.json';
 
-const shouldFetchSummary = (s: ReduxState): boolean => {
-  return (s.summary.readyStatus !== 'SUMMARY_SUCCESS' &&
-          s.summary.readyStatus !== 'SUMMARY_REQUESTING');
-};
+const shouldFetchSummary = (s: ReduxState): boolean => (
+  s.summary.readyStatus !== 'SUMMARY_SUCCESS' &&
+  s.summary.readyStatus !== 'SUMMARY_REQUESTING'
+);
 
 export const fetchSummaryData = (
   summaryUri: string = API_URI,
