@@ -7,7 +7,7 @@ import NProgress from 'nprogress';
 import withReduxStore from '../lib/with-redux-store';
 
 axios.interceptors.request.use((config) => {
-  NProgress.start()
+  NProgress.start();
   return config;
 }, (error) => {
   NProgress.done();
@@ -23,7 +23,7 @@ axios.interceptors.response.use((response) => {
   return Promise.reject(error);
 });
 
-class MyApp extends App {
+class ResumeApp extends App {
   render() {
     const { Component, pageProps, reduxStore } = this.props;
     return (
@@ -36,4 +36,4 @@ class MyApp extends App {
   }
 }
 
-export default withReduxStore(MyApp);
+export default withReduxStore(ResumeApp);
