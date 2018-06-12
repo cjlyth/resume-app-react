@@ -1,12 +1,11 @@
 // @flow
 import React, { PureComponent } from 'react';
 import Grid from '@material-ui/core/Grid';
-import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
 
-import sharedStyle from '../../lib/SharedStyles';
-import config from '../../lib/config';
+import SummaryAvatar from './summary-avatar';
+
 import type { Summary as SummaryType } from '../../lib/types';
 
 type Props = {
@@ -31,16 +30,7 @@ class Summary extends PureComponent<Props> {
         }}
       >
         <Grid item xs={3} sm={2} md={1}>
-          {links
-            .filter(link => link.rel === 'avatar')
-            .map(({ href }) => (
-              <Avatar
-                style={sharedStyle.styleBigAvatar}
-                key={`${name}-logo`}
-                src={`${config.app.resumeDataAPIUrl}/${href}`}
-                alt={name}
-              />
-            ))}
+          <SummaryAvatar links={links} name={name} />
         </Grid>
         <Grid item>
           <Typography variant="headline" color="primary">
