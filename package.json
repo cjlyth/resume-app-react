@@ -9,7 +9,9 @@
     "dev": "nodemon $NODE_DEBUG_OPTION server/app.js --watch server",
     "now": "now && now alias && now rm builderbook-boilerplate --safe --yes",
     "lint": "npx eslint components pages lib server app",
-    "flow": "flow"
+    "flow": "flow",
+    "export": "yarn build && next export",
+    "static": "yarn export && npx http-server out"
   },
   "dependencies": {
     "@material-ui/core": "^1.2.0",
