@@ -5,6 +5,7 @@ module.exports = {
     browser: true,
     jest: true,
   },
+  globals: {process: true},
   plugins: ['react', 'jsx-a11y', 'import'],
   rules: {
     'max-len': ['error', 100],
