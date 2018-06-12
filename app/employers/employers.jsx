@@ -1,6 +1,7 @@
 // @flow
 import React, { PureComponent } from 'react';
 import Grid from '@material-ui/core/Grid';
+import shortid from 'shortid';
 
 import Typography from '@material-ui/core/Typography';
 import Employer from './employer';
@@ -31,7 +32,7 @@ class Employers extends PureComponent<Props> {
       >
         <Grid item><Typography variant="body2">Work History</Typography></Grid>
         {list.map(e => (
-          <Grid item><Employer {...e} /></Grid>
+          <Grid key={shortid.generate()} item><Employer {...e} /></Grid>
         ))}
       </Grid>
     );
