@@ -6,18 +6,23 @@ cache:
 
 before_script:
   - node -v
-  - echo $CI_PROJECT_URL
+#  IDK if all these flags are necessary
+  - npx yarn install --no-bin-links --prod --pure-lockfile --emoji false --no-progress --non-interactive
 
 yarn_lint:
   script:
-    - npx yarn install
     - npx yarn lint
 
-
 pages:
+  stage: deploy
+  variables:
+      NODE_ENV: "production"
   script:
-  - npx yarn build
+  #  IDK if all these flags are necessary
+  - npx yarn build --no-bin-links --prod --pure-lockfile --emoji false --no-progress --non-interactive
   - npx next export -o public
   artifacts:
     paths:
     - public
+  only:
+    - master
