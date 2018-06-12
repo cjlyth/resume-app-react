@@ -1,6 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
-import Grid from '@material-ui/core/Grid';
 import Head from 'next/head';
 
 import SharedStyles from '../lib/SharedStyles';

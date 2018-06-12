@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
+    "ci": "yarn lint && yarn ci",
     "build": "next build",
     "start": "node server/app.js",
     "dev": "nodemon $NODE_DEBUG_OPTION server/app.js --watch server",
