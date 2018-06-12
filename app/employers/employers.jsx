@@ -29,7 +29,7 @@ class Employers extends PureComponent<Props> {
         style={this.props.style}
         spacing={8}
       >
-        <Grid item><Typography variant="title">Work History</Typography></Grid>
+        <Grid item><Typography variant="body2">Work History</Typography></Grid>
         {list.map(e => (
           <Grid item><Employer {...e} /></Grid>
         ))}

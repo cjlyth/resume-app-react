@@ -36,7 +36,7 @@ class Summary extends PureComponent<Props> {
             <Hidden smUp>{nameSmall}</Hidden>
           </Typography>
           <Typography
-            variant="body2"
+            variant="subheading"
             color="textSecondary"
             style={{
               margin: '0 2px',

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import Head from 'next/head';
 
+import SharedStyles from '../lib/SharedStyles';
 import Summary from '../app/summary';
 import Employers from '../app/employers';
 import withLayout from '../lib/with-layout';
@@ -26,16 +27,8 @@ class Index extends PureComponent<Props> {
           <title>{this.props.nameSmall} - Resume</title>
           <meta name="description" content="description for indexing bots" />
         </Head>
-        <Summary style={{
-          margin: 0,
-          width: '100%',
-        }}
-        />
-        <Employers style={{
-          margin: 0,
-          width: '100%',
-        }}
-        />
+        <Summary style={SharedStyles.styleFullWidth} />
+        <Employers style={SharedStyles.styleFullWidth} />
       </Fragment>
     );
   }
