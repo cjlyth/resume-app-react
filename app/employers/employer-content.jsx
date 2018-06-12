@@ -1,28 +1,36 @@
 // @flow
-import React, { Fragment } from 'react';
-import shortid from 'shortid';
+import React, { PureComponent } from 'react';
 
-import config from '../../lib/config';
-import sharedStyle from '../../lib/SharedStyles';
 import type { LinkRelation } from '../../lib/types';
 
-
+/* eslint-disable react/no-unused-prop-types */
 type Props = {
-  alt: string,
-  links: Array<LinkRelation>,
+  readyStatus?: string,
+  err?: Object,
+  link: LinkRelation,
+  fetchEmployer: Function,
+  projects?: Array<Object>,
+}
+/* eslint-enable react/no-unused-prop-types */
+
+class EmployerContent extends PureComponent<Props> {
+
+  static defaultProps = {
+    readyStatus: '',
+    err: null,
+    projects: [],
+  }
+
+  componentDidMount() {
+    const { link, fetchEmployer } = this.props;
+    fetchEmployer(link.href);
+  }
+  render() {
+    const { projects } = this.props;
+    return (
+      <pre>{JSON.stringify(projects, null, 2)}</pre>
+    );
+  }
 }
 
-export default ({ links, alt }:Props) => (
-  <Fragment>
-    {links
-      .filter(link => link.rel === 'logo')
-      .map(({ href }) => (
-        <img
-          key={shortid.generate()}
-          src={`${config.app.resumeDataAPIUrl}/${href}`}
-          alt={alt}
-          style={sharedStyle.styleEmployerAvatar}
-        />
-      ))}
-  </Fragment>
-);
+export default EmployerContent;

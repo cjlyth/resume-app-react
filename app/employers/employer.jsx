@@ -12,7 +12,7 @@ import SvgIcon from '@material-ui/core/SvgIcon';
 import LinkIcon from '@material-ui/icons/Link';
 
 import EmployerAvatar from './employer-avatar';
-import EmployerContent from './employer-content';
+import EmployerContent from './employer-content-container';
 import EmployerAction from './employer-action';
 import type { EmployerInfo } from '../../lib/types';
 
@@ -49,7 +49,7 @@ export default ({
       }
     />
     <CardContent>
-      <EmployerContent links={[]} alt="" />
+      <EmployerContent link={links.find(e => e.rel === 'self')} />
     </CardContent>
     <CardActions disableActionSpacing>
       {links
