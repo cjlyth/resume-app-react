@@ -1,67 +1,58 @@
 // @flow
-import React, { Fragment, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
-import Head from 'next/head';
 
+import sharedStyle from '../../lib/SharedStyles';
 import config from '../../lib/config';
-import { styleSummaryAvatar } from '../../lib/SharedStyles';
 import type { Summary as SummaryType } from '../../lib/types';
 
 type Props = {
-  +fetchSummary: Function,
   +summary: SummaryType
 }
 
-const styles = {
-  center: {
-    textAlign: 'center',
-  },
-};
-
 class Summary extends PureComponent<Props> {
-  componentDidMount() {
-    const { fetchSummary } = this.props;
-    fetchSummary();
-  }
   render() {
     const {
       name, nameSmall, title, titleSmall, links,
     } = this.props.summary.data;
     return (
-      <Fragment>
-        <Head>
-          <title>{nameSmall} - Resume</title>
-          <meta name="description" content="description for indexing bots" />
-        </Head>
-        <Grid container justify="space-around" alignItems="center" spacing={24}>
-          <Grid item xs={12}>&nbsp;</Grid>
-          <Grid item xs={4} sm={3} md={2} >
-            {links
-              .filter(link => link.rel === 'avatar')
-              .map(({ href }) => (
-                <Avatar
-                  style={styleSummaryAvatar}
-                  key={`${name}-logo`}
-                  src={`${config.app.resumeDataAPIUrl}/${href}`}
-                  alt={name}
-                />
-              ))}
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="headline" style={styles.center}>
-              <Hidden xsDown>{name}</Hidden>
-              <Hidden smUp>{nameSmall}</Hidden>
-            </Typography>
-            <Typography variant="subheading" style={styles.center}>
-              <Hidden xsDown>{title}</Hidden>
-              <Hidden smUp>{titleSmall}</Hidden>
-            </Typography>
-          </Grid>
+      <Grid
+        container
+        spacing={16}
+        direction="row"
+        alignItems="center"
+        justify="center"
+        style={{
+          margin: 0,
+          width: '100%',
+        }}
+      >
+        <Grid item xs={3} sm={2} md={1}>
+          {links
+            .filter(link => link.rel === 'avatar')
+            .map(({ href }) => (
+              <Avatar
+                style={sharedStyle.styleBigAvatar}
+                key={`${name}-logo`}
+                src={`${config.app.resumeDataAPIUrl}/${href}`}
+                alt={name}
+              />
+            ))}
         </Grid>
-      </Fragment>
+        <Grid item>
+          <Typography variant="headline" color="primary">
+            <Hidden xsDown>{name}</Hidden>
+            <Hidden smUp>{nameSmall}</Hidden>
+          </Typography>
+          <Typography variant="subheading" color="textSecondary">
+            <Hidden xsDown>{title}</Hidden>
+            <Hidden smUp>{titleSmall}</Hidden>
+          </Typography>
+        </Grid>
+      </Grid>
     );
   }
 }
