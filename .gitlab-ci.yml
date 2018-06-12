@@ -6,6 +6,7 @@ cache:
 
 before_script:
   - node -v
+  - echo $CI_PROJECT_URL
 
 yarn_lint:
   script:
