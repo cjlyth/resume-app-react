@@ -6,7 +6,6 @@ cache:
 
 before_script:
   - node -v
-  - which node
 
 yarn_lint:
   script:
@@ -16,8 +15,8 @@ yarn_lint:
 
 pages:
   script:
-  - yarn build
-  - next export -o public
+  - npx yarn build
+  - npx next export -o public
   artifacts:
     paths:
     - public
