@@ -32,11 +32,13 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "reduxsauce": "^1.0.0",
-    "shortid": "^2.2.8"
+    "shortid": "^2.2.8",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0"
+
   },
   "devDependencies": {
     "babel-eslint": "^8.2.3",
-    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.11.0",
