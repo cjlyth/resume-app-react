@@ -12,3 +12,12 @@ yarn_lint:
   script:
     - npx yarn install
     - npx yarn lint
+
+
+pages:
+  script:
+  - yarn build
+  - next export -o public
+  artifacts:
+    paths:
+    - public

@@ -10,7 +10,7 @@
     "now": "now && now alias && now rm builderbook-boilerplate --safe --yes",
     "lint": "npx eslint components pages lib server app",
     "flow": "flow",
-    "export": "yarn build && next export",
+    "export": "yarn build && next export -o public",
     "static": "yarn export && npx http-server out"
   },
   "dependencies": {
