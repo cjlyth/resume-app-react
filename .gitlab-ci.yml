@@ -7,7 +7,7 @@ cache:
 before_script:
   - node -v
 #  IDK if all these flags are necessary
-  - npx yarn install --no-bin-links --prod --pure-lockfile --emoji false --no-progress --non-interactive
+  - npx yarn install --no-bin-links --pure-lockfile --emoji false --no-progress --non-interactive
 
 yarn_lint:
   script:
