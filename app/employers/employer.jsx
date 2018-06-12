@@ -1,7 +1,5 @@
 // @flow
 import React from 'react';
-import shortid from 'shortid';
-
 
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -15,6 +13,7 @@ import EmployerAvatar from './employer-avatar';
 import EmployerContent from './employer-content-container';
 import EmployerAction from './employer-action';
 import type { EmployerInfo } from '../../lib/types';
+import { DateRange } from './utils';
 
 const cardActions = ['website'];
 
@@ -29,11 +28,6 @@ function LinkedInIcon(props) {
   /* eslint-enable max-len */
 }
 
-
-const DateRange = ({ dates }) =>
-  dates.map((d, i) => (
-    <span key={shortid.generate()}>{d} {i === 0 && ' - '}</span>
-  ));
 
 export default ({
   links, name, description, dates,

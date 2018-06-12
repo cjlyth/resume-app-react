@@ -1,7 +1,14 @@
 // @flow
 import React, { PureComponent } from 'react';
+import shortid from 'shortid';
+import { withStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import Typography from '@material-ui/core/Typography';
 
-import type { LinkRelation } from '../../lib/types';
+import type { LinkRelation, Project as ProjectType } from '../../lib/types';
+import ProjectComponent from './project-component';
 
 /* eslint-disable react/no-unused-prop-types */
 type Props = {
@@ -9,12 +16,29 @@ type Props = {
   err?: Object,
   link: LinkRelation,
   fetchEmployer: Function,
-  projects?: Array<Object>,
+  projects: Array<ProjectType>,
+  classes: Object,
 }
 /* eslint-enable react/no-unused-prop-types */
 
-class EmployerContent extends PureComponent<Props> {
+const styles = theme => ({
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular,
+  },
+});
 
+const toProjectComponent = e => (<ProjectComponent key={shortid.generate()} {...e} />);
+
+const NoDataComponent = (classes: Object) => (
+  <ExpansionPanel disabled>
+    <ExpansionPanelSummary>
+      <Typography className={classes.heading}>No relevant experience found</Typography>
+    </ExpansionPanelSummary>
+  </ExpansionPanel>
+)
+
+class EmployerContent extends PureComponent<Props> {
   static defaultProps = {
     readyStatus: '',
     err: null,
@@ -25,12 +49,18 @@ class EmployerContent extends PureComponent<Props> {
     const { link, fetchEmployer } = this.props;
     fetchEmployer(link.href);
   }
+
   render() {
-    const { projects } = this.props;
+    const { projects, classes } = this.props;
     return (
-      <pre>{JSON.stringify(projects, null, 2)}</pre>
+      <List>
+        {projects && projects.length > 0
+          ? projects.map(toProjectComponent)
+          : (<NoDataComponent classes={classes} />)
+        }
+      </List>
     );
   }
 }
 
-export default EmployerContent;
+export default withStyles(styles)(EmployerContent);
