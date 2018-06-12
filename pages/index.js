@@ -26,8 +26,16 @@ class Index extends PureComponent<Props> {
           <title>{this.props.nameSmall} - Resume</title>
           <meta name="description" content="description for indexing bots" />
         </Head>
-        <Summary />
-        <Employers />
+        <Summary style={{
+          margin: 0,
+          width: '100%',
+        }}
+        />
+        <Employers style={{
+          margin: 0,
+          width: '100%',
+        }}
+        />
       </Fragment>
     );
   }

@@ -1,6 +1,5 @@
 // @flow
 import React, { Fragment } from 'react';
-import Avatar from '@material-ui/core/Avatar';
 import shortid from 'shortid';
 
 import config from '../../lib/config';
@@ -13,16 +12,16 @@ type Props = {
   +links: Array<LinkRelation>,
 }
 
-export default ({ links, alt = 'profile image' }:Props) => (
+export default ({ links, alt }:Props) => (
   <Fragment>
     {links
-      .filter(link => link.rel === 'avatar')
+      .filter(link => link.rel === 'logo')
       .map(({ href }) => (
-        <Avatar
-          style={sharedStyle.styleBigAvatar}
+        <img
           key={shortid.generate()}
           src={`${config.app.resumeDataAPIUrl}/${href}`}
           alt={alt}
+          style={sharedStyle.styleEmployerAvatar}
         />
       ))}
   </Fragment>

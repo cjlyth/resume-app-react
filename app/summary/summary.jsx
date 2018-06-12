@@ -9,7 +9,8 @@ import SummaryAvatar from './summary-avatar';
 import type { Summary as SummaryType } from '../../lib/types';
 
 type Props = {
-  +summary: SummaryType
+  +summary: SummaryType,
+  +style: Object,
 }
 
 class Summary extends PureComponent<Props> {
@@ -24,20 +25,23 @@ class Summary extends PureComponent<Props> {
         direction="row"
         alignItems="center"
         justify="center"
-        style={{
-          margin: 0,
-          width: '100%',
-        }}
+        style={this.props.style}
       >
         <Grid item xs={3} sm={2} md={1}>
-          <SummaryAvatar links={links} name={name} />
+          <SummaryAvatar links={links} alt={name} />
         </Grid>
         <Grid item>
           <Typography variant="headline" color="primary">
             <Hidden xsDown>{name}</Hidden>
             <Hidden smUp>{nameSmall}</Hidden>
           </Typography>
-          <Typography variant="subheading" color="textSecondary">
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            style={{
+              margin: '0 2px',
+            }}
+          >
             <Hidden xsDown>{title}</Hidden>
             <Hidden smUp>{titleSmall}</Hidden>
           </Typography>

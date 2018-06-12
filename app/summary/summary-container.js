@@ -1,3 +1,4 @@
+// @flow
 import { connect } from 'react-redux';
 import Summary from './summary';
 import { fetchSummaryIfNeeded } from './actions';

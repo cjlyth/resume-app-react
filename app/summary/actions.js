@@ -1,3 +1,4 @@
+// @flow
 import axios from 'axios';
 import type { Dispatch, ThunkAction, ReduxState, GetState } from '../../lib/types';
 
