@@ -13,7 +13,7 @@ import EmployerAvatar from './employer-avatar';
 import EmployerContent from './employer-content-container';
 import EmployerAction from './employer-action';
 import type { EmployerInfo } from '../../lib/types';
-import { DateRange } from './utils';
+import { DateRange } from '../utils';
 
 const cardActions = ['website'];
 

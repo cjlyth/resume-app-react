@@ -8,7 +8,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 
 import type { LinkRelation, Project as ProjectType } from '../../lib/types';
-import ProjectComponent from './project-component';
+import Project from '../project';
 
 /* eslint-disable react/no-unused-prop-types */
 type Props = {
@@ -28,10 +28,10 @@ const styles = theme => ({
   },
 });
 
-const toProjectComponent = e => (<ProjectComponent key={shortid.generate()} {...e} />);
+const toProjectComponent = e => (<Project key={shortid.generate()} {...e} />);
 
 const NoDataComponent = (classes: Object) => (
-  <ExpansionPanel disabled>
+  <ExpansionPanel>
     <ExpansionPanelSummary>
       <Typography className={classes.heading}>No relevant experience found</Typography>
     </ExpansionPanelSummary>
