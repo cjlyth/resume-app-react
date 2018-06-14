@@ -3,6 +3,7 @@ import JssProvider from 'react-jss/lib/JssProvider';
 import Document, { Head, Main, NextScript } from 'next/document';
 
 import getContext from '../lib/context';
+import { app } from '../lib/config';
 
 class MyDocument extends Document {
   render() {
@@ -16,7 +17,7 @@ class MyDocument extends Document {
 
           <link
             rel="shortcut icon"
-            href="https://storage.googleapis.com/builderbook/favicon32.png"
+            href={`${app.resumeDataAPIUrl}assets/profile32.png`}
           />
           <link
             rel="stylesheet"
