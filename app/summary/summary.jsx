@@ -3,10 +3,15 @@ import React, { PureComponent } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
+import IconButton from '@material-ui/core/IconButton';
+import shortid from 'shortid';
 
 import SummaryAvatar from './summary-avatar';
 
 import type { Summary as SummaryType } from '../../lib/types';
+import sharedStyle from '../../lib/SharedStyles';
+import LinkedInIcon from '../LinkedInIcon';
+import config from '../../lib/config';
 
 type Props = {
   +summary: SummaryType,
@@ -45,6 +50,21 @@ class Summary extends PureComponent<Props> {
             <Hidden xsDown>{title}</Hidden>
             <Hidden smUp>{titleSmall}</Hidden>
           </Typography>
+        </Grid>
+        <Grid item>
+          {links
+            .filter(link => link.rel === 'linkedin')
+            .map(link => (
+              <IconButton
+                key={shortid.generate()}
+                title={`Open ${name} ${link.rel}`}
+                target="_blank"
+                aria-label={`Open ${name} ${link.rel}`}
+                href={link.href}
+              >
+                <LinkedInIcon />
+              </IconButton>
+            ))}
         </Grid>
       </Grid>
     );
