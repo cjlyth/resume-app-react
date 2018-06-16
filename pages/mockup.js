@@ -36,6 +36,9 @@ const styles = theme => ({
     height: '80%',
     width: '80%',
   },
+  projectList: {
+    width: '100%',
+  },
   projectListData: {
     padding: '0',
   },
@@ -138,7 +141,7 @@ class Mockup extends PureComponent<Props> {
     projects: [
       {
         projectName: 'Project One',
-        dates: ['2018-05-22', '1997-09-01'],
+        dates: ['1997-09-01', '2018-05-22'],
         objective: ['to write a react resume application'],
         roles: ['developer', 'product owner'],
         responsibilities: [],
@@ -257,35 +260,39 @@ class Mockup extends PureComponent<Props> {
                 }) => (
                   <Paper key={shortid.generate()} className={classes.root}>
                     <Grid container spacing={8}>
-                      <Grid item xs={6}>
+                      <Grid item xs={5}>
                         <Typography variant="subheading" >{projectName}</Typography>
                       </Grid>
-                      <Grid item xs={5}>
+                      <Grid item xs={6}>
                         <Typography variant="subheading" align="right" >
                           <DateRange dates={dates} />
                         </Typography>
                       </Grid>
                       <Grid item xs={1}>
-                        <StoreIcon />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <Typography variant="caption" align="left" >
-                          <b>Objective: </b>
-                          {objective.map(o => (<span key={shortid.generate()}>{o}</span>))}
+                        <Typography align="center" >
+                          <StoreIcon />
                         </Typography>
                       </Grid>
-                      <Grid item xs={12}>
-                        <Typography variant="caption" align="left" >
-                          <b>Roles: </b>
-                          {roles.map((r, i) => (
-                            <span key={shortid.generate()}>{r}{i + 1 < roles.length && ', '}</span>
-                        ))}
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12}>
-                        <hr />
-                      </Grid>
-                      <List disablePadding>
+                      <List disablePadding className={classes.projectList}>
+                        <ListItem
+                          divider={responsibilities.length + achievements.length > 0}
+                          disableGutters
+                        >
+                          <Typography variant="caption" align="left" >
+                            <div>
+                              <b>Objective: </b>
+                              {objective.map(o => (<span key={shortid.generate()}>{o}</span>))}
+                            </div>
+                            <div>
+                              <b>Roles: </b>
+                              {roles.map((r, i) => (
+                                <span key={shortid.generate()}>
+                                  {r}{i + 1 < roles.length && ', '}
+                                </span>
+                              ))}
+                            </div>
+                          </Typography>
+                        </ListItem>
                         <ResponsibilityList
                           classes={classes}
                           responsibilities={responsibilities}
