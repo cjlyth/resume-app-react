@@ -10,13 +10,9 @@ import shortid from 'shortid';
 
 import LinkedInIcon from '../app/LinkedInIcon';
 import withLayout from '../lib/with-layout';
+import SharedStyles from '../lib/SharedStyles';
 
 
-type Props = {
-  fullName?: string,
-  currentTitle?: string,
-  settingsOpen?: boolean,
-};
 const styles = {
   avatarStyles: {
     height: '80px',
@@ -26,66 +22,96 @@ const styles = {
     height: '80%',
     width: '80%',
   },
-  currentTitle: {
-    // margin: '0 2px',
-  },
 };
 
-const Mockup = (props:Props) => (
-  const toggleSettings = () => {
+type Props = {
+  fullName?: string,
+  currentTitle?: string,
+};
 
-    // settingsOpen
+class Mockup extends PureComponent<Props> {
+  static defaultProps = {
+    fullName: 'Firstname Lastname',
+    currentTitle: 'Current Title',
+  };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      settingsOpen: false,
+    };
   }
-  <Fragment>
-    <Head>
-      <title>Resume Mockup</title>
-      <meta name="description" content="description for indexing bots" />
-    </Head>
-    <Grid
-      container
-      spacing={16}
-      direction="row"
-      alignItems="center"
-      justify="center"
-    >
-      <Grid item>
-        <Avatar style={styles.avatarStyles}>
-          <FaceIcon style={styles.avatarImage} />
-        </Avatar>
-      </Grid>
-      <Grid item>
-        <Typography variant="display1" color="primary">{props.fullName}</Typography>
-        <Typography variant="title" color="textSecondary">{props.currentTitle}</Typography>
-      </Grid>
-      <Grid item>
-        <Grid container direction="column">
-          <IconButton
-            key={shortid.generate()}
-            title={`Open ${props.fullName}'s LinkedIn`}
-            target="_blank"
-            aria-label={`Open ${props.fullName}'s LinkedIn`}
-          >
-            <LinkedInIcon />
-          </IconButton>
-          <IconButton
-            key={shortid.generate()}
-            title="Open resume settings"
-            target="_blank"
-            aria-label="Open resume settings"
-          >
-            <SettingsIcon />
-          </IconButton>
-        </Grid>
-      </Grid>
-    </Grid>
-  </Fragment>
-);
 
-Mockup.defaultProps = {
-  fullName: 'Firstname Lastname',
-  currentTitle: 'Current Title',
-  settingsOpen: false,
-};
+  async toggleSettings() {
+    const so = !this.state.settingsOpen;
+    this.setState(Object.assign({}, this.state, { settingsOpen: so }));
+  }
+
+  render() {
+    const { fullName, currentTitle } = this.props;
+    const { settingsOpen } = this.state;
+    return (
+      <Fragment>
+        <Head>
+          <title>Resume Mockup</title>
+          <meta name="description" content="description for indexing bots" />
+        </Head>
+        <Grid
+          container
+          spacing={16}
+          direction="column"
+          alignItems="center"
+          justify="center"
+          style={SharedStyles.styleFullWidth}
+        >
+          <Grid item>
+            <Grid
+              container
+              spacing={16}
+              direction="row"
+              alignItems="center"
+              justify="center"
+            >
+              <Grid item>
+                <Avatar style={styles.avatarStyles}>
+                  <FaceIcon style={styles.avatarImage} />
+                </Avatar>
+              </Grid>
+              <Grid item>
+                <Typography variant="display1" color="primary">{fullName}</Typography>
+                <Typography variant="title" color="textSecondary">{currentTitle}</Typography>
+              </Grid>
+              <Grid item>
+                <Grid container direction="column">
+                  <IconButton
+                    key={shortid.generate()}
+                    title={`Open ${fullName}'s LinkedIn`}
+                    target="_blank"
+                    aria-label={`Open ${fullName}'s LinkedIn`}
+                  >
+                    <LinkedInIcon />
+                  </IconButton>
+                  <IconButton
+                    key={shortid.generate()}
+                    title="Open resume settings"
+                    target="_blank"
+                    aria-label="Open resume settings"
+                    color={settingsOpen ? 'primary' : 'secondary'}
+                    onClick={() => this.toggleSettings()}
+                  >
+                    <SettingsIcon />
+                  </IconButton>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item>
+          settingsOpen: { String(settingsOpen) }
+          </Grid>
+        </Grid>
+      </Fragment>
+    );
+  }
+}
 
 export default withLayout(Mockup);
