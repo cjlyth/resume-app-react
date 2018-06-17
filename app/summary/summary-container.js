@@ -1,7 +1,8 @@
 // @flow
 import { connect } from 'react-redux';
 import Summary from '../../components/summary';
-import { fetchSummaryIfNeeded, toggleSettings } from './summary-actions';
+import { fetchSummaryIfNeeded } from './summary-actions';
+import { toggleSettings } from '../settings/settings-actions';
 
 const mapDispatchToProps = dispatch => ({
   toggleSettings: () => {

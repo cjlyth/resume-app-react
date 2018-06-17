@@ -43,16 +43,6 @@ export const fetchSummaryData = (
   }
 };
 
-export const toggleSettings = (): ThunkAction => (
-  dispatch: Dispatch,
-  getState: GetState,
-) => {
-  const { settings } = getState();
-  return dispatch({
-    type: 'SETTINGS_TOGGLE',
-    settingsOpen: !settings.settingsOpen,
-  });
-};
 export const fetchSummaryIfNeeded = (): ThunkAction => (
   dispatch: Dispatch,
   getState: GetState,
