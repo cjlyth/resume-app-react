@@ -58,10 +58,12 @@ type ProjectType = {
   achievements: Array<string>,
   employerWebsite: string, // eslint-disable-line react/no-unused-prop-types
 };
-
-type Props = {
+type SymmaryType = {
   fullName?: string,
   currentTitle?: string,
+};
+type Props = {
+  summary: SymmaryType,
   employers: Array<EmployerType>,
   classes: Object,
   projects: Array<ProjectType>,
@@ -180,8 +182,10 @@ class Mockup extends PureComponent<Props, {
   settingsOpen: boolean,
 }> {
   static defaultProps = {
-    fullName: 'Firstname Lastname',
-    currentTitle: 'Current Title',
+    summary: {
+      fullName: 'Firstname Lastname',
+      currentTitle: 'Current Title',
+    },
     employers: [
       {
         name: 'Company 1',
@@ -284,7 +288,7 @@ class Mockup extends PureComponent<Props, {
 
   render() {
     const {
-      fullName, currentTitle, projects, classes, employers,
+      summary, projects, classes, employers,
     } = this.props;
     const { settingsOpen } = this.state;
 
@@ -316,14 +320,18 @@ class Mockup extends PureComponent<Props, {
                 </Avatar>
               </Grid>
               <Grid item>
-                <Typography variant="display1" color="primary">{fullName}</Typography>
-                <Typography variant="title" color="textSecondary">{currentTitle}</Typography>
+                <Typography variant="display1" color="primary">
+                  {summary.fullName}
+                </Typography>
+                <Typography variant="title" color="textSecondary">
+                  {summary.currentTitle}
+                </Typography>
               </Grid>
               <Grid item>
                 <Hidden only="xs">
                   <Grid container direction="column">
                     <SummaryButtons
-                      {...this.props}
+                      {...summary}
                       settingsOpen={settingsOpen}
                       toggleSettings={() => this.toggleSettings()}
                     />
@@ -332,7 +340,7 @@ class Mockup extends PureComponent<Props, {
                 <Hidden smUp>
                   <Grid container direction="row">
                     <SummaryButtons
-                      {...this.props}
+                      {...summary}
                       settingsOpen={settingsOpen}
                       toggleSettings={this.toggleSettings}
                     />
