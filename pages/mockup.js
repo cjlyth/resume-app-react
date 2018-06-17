@@ -1,3 +1,4 @@
+// @flow
 import React, { PureComponent, Fragment } from 'react';
 import Head from 'next/head';
 import Grid from '@material-ui/core/Grid';
@@ -7,12 +8,11 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import FaceIcon from '@material-ui/icons/Face';
 import SettingsIcon from '@material-ui/icons/Settings';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
 import StoreIcon from '@material-ui/icons/Store';
-import Paper from '@material-ui/core/Paper';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { withStyles } from '@material-ui/core/styles';
 
 import shortid from 'shortid';
@@ -44,19 +44,28 @@ const styles = theme => ({
   },
 });
 
-type ProjectType = {
-  projectName?: string,
-  dates?: Array<string>,
-  objective?: Array<string>,
-  roles?: Array<string>,
-  responsibilities?: Array<string>,
-  achievements?: Array<string>,
+type EmployerType = {
+  name?: string,
+  website?: string,
 };
+
+type ProjectType = {
+  projectName: string,
+  dates: Array<string>,
+  objective: Array<string>,
+  roles: Array<string>,
+  responsibilities: Array<string>,
+  achievements: Array<string>,
+  employerWebsite: string, // eslint-disable-line react/no-unused-prop-types
+};
+
 type Props = {
   fullName?: string,
   currentTitle?: string,
+  employers: Array<EmployerType>,
   classes: Object,
   projects: Array<ProjectType>,
+  toggleCompanyMenu: Function,
 };
 
 type SummaryButtonType = {
@@ -65,55 +74,10 @@ type SummaryButtonType = {
   toggleSettings: Function,
 };
 
-const AchievementList = ({ achievements, classes }:{
-  achievements:Array<string>,
-  classes: Object,
-}) => (
-  <Fragment>
-    {achievements.length > 0 && (
-      <ListSubheader
-        className={classes.projectListData}
-      >
-        Achievements:
-      </ListSubheader>
-    )}
-    {achievements.map(a => (
-      <ListItem
-        disableGutters
-        className={classes.projectListData}
-        key={shortid.generate()}
-      >
-        <ListItemText primary={a} />
-      </ListItem>
-    ))}
-  </Fragment>
-);
 
-const ResponsibilityList = ({ responsibilities, classes }:{
-  responsibilities:Array<string>,
-  classes: Object,
-}) => (
-  <Fragment>
-    {responsibilities.length > 0 && (
-      <ListSubheader
-        className={classes.projectListData}
-      >
-        Responsibilities:
-      </ListSubheader>
-    )}
-    {responsibilities.map(r => (
-      <ListItem
-        disableGutters
-        className={classes.projectListData}
-        key={shortid.generate()}
-      >
-        <ListItemText primary={r} />
-      </ListItem>
-    ))}
-  </Fragment>
-);
-
-const SummaryButtons = ({ fullName, settingsOpen, toggleSettings }:SummaryButtonType) => (
+const SummaryButtons = ({
+  fullName, settingsOpen, toggleSettings,
+}:SummaryButtonType) => (
   <Fragment>
     <IconButton
       title={`Open ${fullName}'s LinkedIn`}
@@ -133,45 +97,172 @@ const SummaryButtons = ({ fullName, settingsOpen, toggleSettings }:SummaryButton
     </IconButton>
   </Fragment>
 );
+const ResponsibilityContent = ({ responsibilities }:{
+  responsibilities: Array<string>,
+}) => (
+  <Fragment>
+    {responsibilities.length > 0 && (
+      <Typography>Responsibilities:</Typography>
+    )}
+    {responsibilities.map(r => (
+      <Typography key={shortid.generate()}> - {r}</Typography>
+    ))}
+  </Fragment>
+);
+const AchievementContent = ({ achievements }:{
+  achievements: Array<string>,
+}) => (
+  <Fragment>
+    {achievements.length > 0 && (
+      <Typography>Achievements:</Typography>
+    )}
+    {achievements.map(a => (
+      <Typography key={shortid.generate()}> - {a}</Typography>
+    ))}
+  </Fragment>
+);
+const ProjectCard = ({
+  projectName = '',
+  dates = [],
+  objective = [],
+  roles = [],
+  responsibilities = [],
+  achievements = [],
+}: ProjectType) => (
+  <Card>
+    <CardHeader
+      avatar={
+        <Avatar aria-label={projectName} >
+          <StoreIcon />
+        </Avatar>
+        }
+      action={
+        <IconButton>
+          <MoreVertIcon />
+        </IconButton>
+        }
+      title={projectName}
+      subheader={<DateRange dates={dates} />}
+    />
+    <CardContent>
+      <Typography variant="caption" align="left" >
+        <div>
+          <b>Objective: </b>
+          {objective.map(o => (<span key={shortid.generate()}>{o}</span>))}
+        </div>
+        <div>
+          <b>Roles: </b>
+          {roles.map((r:string, i) => (
+            <span key={shortid.generate()}>
+              {r}{i + 1 < roles.length && ', '}
+            </span>
+          ))}
+        </div>
+      </Typography>
+    </CardContent>
 
-class Mockup extends PureComponent<Props> {
+    <CardContent>
+      <Grid container spacing={16}>
+        <Grid item xs={12} md={4}>
+          <ResponsibilityContent responsibilities={responsibilities} />
+        </Grid>
+        <Grid item xs={12} md={8}>
+          <AchievementContent achievements={achievements} />
+        </Grid>
+      </Grid>
+    </CardContent>
+
+
+  </Card>
+);
+
+class Mockup extends PureComponent<Props, {
+  settingsOpen: boolean,
+}> {
   static defaultProps = {
     fullName: 'Firstname Lastname',
     currentTitle: 'Current Title',
-    projects: [
+    employers: [
       {
-        projectName: 'Project One',
-        dates: ['1997-09-01', '2018-05-22'],
-        objective: ['to write a react resume application'],
-        roles: ['developer', 'product owner'],
-        responsibilities: [],
-        achievements: [],
+        name: 'Company 1',
+        website: 'https://www.company-1.com',
       },
       {
-        projectName: 'Social Search',
+        name: 'Company 2',
+        website: 'https://www.company-2.com',
+      },
+    ],
+    projects: [
+      {
+        employerWebsite: 'https://www.company-2.com',
+        projectName: 'Ut enim',
         dates: [
-          '2014-01-01',
-          '2014-03-01',
+          '2000-01-01',
+          '2012-12-21',
         ],
         roles: [
-          'Solution Architect',
-          'Lead Developer',
+          'Lorem ipsum',
+          'Duis aute',
         ],
         objective: [
-          'Create a tool help targeting analysts quickly find ' +
-          'relevant content across a very large number of sites',
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, ' +
+          'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         ],
         responsibilities: [
-          'Provide architecture advice to project leadership',
-          'Design and implement new features as needed',
-          'Identify risks and suggest solutions for all development efforts',
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, ' +
+          'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ' +
+          'nisi ut aliquip ex ea commodo consequat.',
+          'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum ' +
+          'dolore eu fugiat nulla pariatur.',
+          'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui ' +
+          'officia deserunt mollit anim id est laborum.',
         ],
         achievements: [
-          'By diligently identifying risks and facilitating mitigation, ' +
-          'team success was significantly improved',
-          'Modernized and improved search functionality by advocating ' +
-          'replacement of a complex Solr configuration with a much more ' +
-          'powerful and simple elasticsearch service',
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, ' +
+          'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ' +
+          'nisi ut aliquip ex ea commodo consequat.',
+          'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum ' +
+          'dolore eu fugiat nulla pariatur.',
+          'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui ' +
+          'officia deserunt mollit anim id est laborum.',
+        ],
+      },
+      {
+        employerWebsite: 'https://www.company-1.com',
+        projectName: 'Lorem ipsum',
+        dates: [
+          '2000-01-01',
+          '2012-12-21',
+        ],
+        roles: [
+          'Lorem ipsum',
+          'Duis aute',
+        ],
+        objective: [
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, ' +
+          'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        ],
+        responsibilities: [
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, ' +
+          'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ' +
+          'nisi ut aliquip ex ea commodo consequat.',
+          'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum ' +
+          'dolore eu fugiat nulla pariatur.',
+          'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui ' +
+          'officia deserunt mollit anim id est laborum.',
+        ],
+        achievements: [
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, ' +
+          'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ' +
+          'nisi ut aliquip ex ea commodo consequat.',
+          'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum ' +
+          'dolore eu fugiat nulla pariatur.',
+          'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui ' +
+          'officia deserunt mollit anim id est laborum.',
         ],
       },
     ],
@@ -184,14 +275,16 @@ class Mockup extends PureComponent<Props> {
     };
   }
 
-  async toggleSettings() {
-    const so = !this.state.settingsOpen;
-    this.setState(Object.assign({}, this.state, { settingsOpen: so }));
-  }
+  toggleSettings = () => {
+    this.setState(Object.assign({}, this.state, {
+      settingsOpen: !this.state.settingsOpen,
+    }));
+  };
+
 
   render() {
     const {
-      fullName, currentTitle, projects, classes,
+      fullName, currentTitle, projects, classes, employers,
     } = this.props;
     const { settingsOpen } = this.state;
 
@@ -241,73 +334,31 @@ class Mockup extends PureComponent<Props> {
                     <SummaryButtons
                       {...this.props}
                       settingsOpen={settingsOpen}
-                      toggleSettings={() => this.toggleSettings()}
+                      toggleSettings={this.toggleSettings}
                     />
                   </Grid>
                 </Hidden>
               </Grid>
             </Grid>
           </Grid>
-          <Grid item sm={10} md={8}>
-
-            {projects.map(({
-                  projectName,
-                  dates,
-                  objective,
-                  roles,
-                  responsibilities,
-                  achievements,
-                }) => (
-                  <Paper key={shortid.generate()} className={classes.root}>
-                    <Grid container spacing={8}>
-                      <Grid item xs={5}>
-                        <Typography variant="subheading" >{projectName}</Typography>
-                      </Grid>
-                      <Grid item xs={6}>
-                        <Typography variant="subheading" align="right" >
-                          <DateRange dates={dates} />
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={1}>
-                        <Typography align="center" >
-                          <StoreIcon />
-                        </Typography>
-                      </Grid>
-                      <List disablePadding className={classes.projectList}>
-                        <ListItem
-                          divider={responsibilities.length + achievements.length > 0}
-                          disableGutters
-                        >
-                          <Typography variant="caption" align="left" >
-                            <div>
-                              <b>Objective: </b>
-                              {objective.map(o => (<span key={shortid.generate()}>{o}</span>))}
-                            </div>
-                            <div>
-                              <b>Roles: </b>
-                              {roles.map((r, i) => (
-                                <span key={shortid.generate()}>
-                                  {r}{i + 1 < roles.length && ', '}
-                                </span>
-                              ))}
-                            </div>
-                          </Typography>
-                        </ListItem>
-                        <ResponsibilityList
-                          classes={classes}
-                          responsibilities={responsibilities}
-                        />
-                        <AchievementList
-                          classes={classes}
-                          achievements={achievements}
-                        />
-                      </List>
-                    </Grid>
-                  </Paper>
-              ))}
-          </Grid>
+          {employers.map((employer: EmployerType) => (
+            <Grid item key={employer.website} md={10} lg={8}>
+              <Typography variant="subheading" paragraph>{employer.name}</Typography>
+              {projects
+                .filter(project => project.employerWebsite === employer.website)
+                .map(project => (
+                  <ProjectCard
+                    key={shortid.generate()}
+                    {...project}
+                    employer={employer}
+                    classes={classes}
+                  />
+                ))
+              }
+            </Grid>
+          ))}
           <Grid item>
-          settingsOpen: { String(settingsOpen) }
+            <p>settingsOpen: { String(settingsOpen) }</p>
           </Grid>
         </Grid>
       </Fragment>
