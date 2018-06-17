@@ -14,8 +14,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 function mapStateToProps(state) {
-  const { summary } = state;
-  return { ...summary.data };
+  const { summary, settings } = state;
+  const { settingsOpen } = settings;
+  return { settingsOpen, ...summary.data };
 }
 
 export default connect(
