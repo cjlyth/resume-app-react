@@ -31,7 +31,8 @@ export const fetchEmployersData = (
   dispatch({ type: 'EMPLOYERS_REQUESTING', employersUri });
   try {
     const { data } = await axios.get(`${URL_BASE}/${employersUri}`);
-    dispatch({ type: 'EMPLOYERS_SUCCESS', employersUri, data });
+
+    dispatch({ type: 'EMPLOYERS_SUCCESS', employersUri, data: data.employers });
   } catch (err) {
     dispatch({ type: 'EMPLOYERS_FAILURE', employersUri, err: err.message });
   }

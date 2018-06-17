@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import SharedStyles from '../lib/SharedStyles';
 import Summary from '../app/summary';
 import withLayout from '../lib/with-layout';
+import { fetchEmployersIfNeeded } from '../app/employers/employers-actions';
 
 type Props = {
   +titleName: string,
@@ -13,6 +14,10 @@ type Props = {
 }
 
 class Index extends PureComponent<Props> {
+  componentDidMount() {
+    const { fetchEmployers } = this.props;
+    fetchEmployers();
+  }
   render() {
     return (
       <Fragment>
@@ -40,8 +45,14 @@ class Index extends PureComponent<Props> {
   }
 }
 
+
+const mapDispatchToProps = dispatch => ({
+  fetchEmployers: () => {
+    dispatch(fetchEmployersIfNeeded());
+  },
+});
 function mapStateToProps(state) {
   const { summary, settings } = state;
   return { titleName: summary.data.fullName, settingsOpen: settings.settingsOpen };
 }
-export default connect(mapStateToProps)(withLayout(Index));
+export default connect(mapStateToProps, mapDispatchToProps)(withLayout(Index));
