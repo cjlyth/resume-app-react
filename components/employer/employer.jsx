@@ -18,7 +18,9 @@ const Employer = ({
   name, website, projects, ProjectComponent,
 }:Props) => (
   <Grid item key={website} lg={10}>
-    <Typography variant="subheading" paragraph>{name}</Typography>
+    <Typography variant="subheading" paragraph>{name}
+      <Typography variant="caption" gutterBottom>{website}</Typography>
+    </Typography>
     {projects
       .filter(project => project.employerWebsite === website)
       .map(project => (

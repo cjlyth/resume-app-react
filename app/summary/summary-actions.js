@@ -5,9 +5,9 @@ import type {
   GetState,
   ReduxState,
   ThunkAction,
-  SummaryType, LinkRelation,
+  SummaryType,
 } from '../../lib/types';
-
+import utils from '../utils';
 import { app } from '../../lib/config';
 
 const SUMMARY_API_URI = '/summary.json';
@@ -17,11 +17,6 @@ const shouldFetchSummary = (s: ReduxState): boolean => (
   s.summary.readyStatus !== 'SUMMARY_REQUESTING'
 );
 
-const getLink = (links: Array<LinkRelation> = [], linkRel:string) => {
-  const link = links.find(l => l.rel === linkRel);
-  return link ? link.href : '';
-};
-
 export const fetchSummaryData = (
   summaryUri: string = SUMMARY_API_URI,
   URL_BASE: string = app.resumeDataAPIUrl,
@@ -29,7 +24,7 @@ export const fetchSummaryData = (
   dispatch({ type: 'SUMMARY_REQUESTING', summaryUri });
   try {
     const { data } = await axios.get(`${URL_BASE}/${summaryUri}`);
-    const link = (rel: string) => getLink(data.links, rel);
+    const link = (rel: string) => utils.getLinkRelation(data.links, rel);
     const avatarUri = link('avatar');
     const summary: SummaryType = {
       fullName: data.name,
