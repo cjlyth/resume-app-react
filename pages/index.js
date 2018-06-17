@@ -5,25 +5,22 @@ import Grid from '@material-ui/core/Grid';
 
 import SharedStyles from '../lib/SharedStyles';
 import Summary from '../app/summary';
+import Employers from '../app/employers';
 import withLayout from '../lib/with-layout';
-import { fetchEmployersIfNeeded } from '../app/employers/employers-actions';
 
 type Props = {
   +titleName: string,
-  +settingsOpen: boolean,
-  +fetchEmployers: Function,
 }
 
 class Index extends PureComponent<Props> {
-  componentDidMount() {
-    const { fetchEmployers } = this.props;
-    fetchEmployers();
-  }
   render() {
+    const {
+      titleName,
+    } = this.props;
     return (
       <Fragment>
         <Head>
-          <title>{this.props.titleName} - Resume</title>
+          <title>{titleName} - Resume</title>
           <meta name="description" content="description for indexing bots" />
         </Head>
         <Grid
@@ -35,25 +32,19 @@ class Index extends PureComponent<Props> {
           style={SharedStyles.styleFullWidth}
         >
           <Grid item>
-            <Summary style={SharedStyles.styleFullWidth} />
+            <Summary />
           </Grid>
-          <Grid item>
-            <p>settingsOpen: { String(this.props.settingsOpen) }</p>
-          </Grid>
+          <Employers />
         </Grid>
       </Fragment>
     );
   }
 }
 
-
-const mapDispatchToProps = dispatch => ({
-  fetchEmployers: () => {
-    dispatch(fetchEmployersIfNeeded());
-  },
-});
 function mapStateToProps(state) {
-  const { summary, settings } = state;
-  return { titleName: summary.data.fullName, settingsOpen: settings.settingsOpen };
+  const { summary } = state;
+  return {
+    titleName: summary.data.fullName,
+  };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(withLayout(Index));
+export default connect(mapStateToProps)(withLayout(Index));
