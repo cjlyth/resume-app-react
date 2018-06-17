@@ -163,10 +163,10 @@ const ProjectCard = ({
 
     <CardContent>
       <Grid container spacing={16}>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={6}>
           <ResponsibilityContent responsibilities={responsibilities} />
         </Grid>
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} md={6}>
           <AchievementContent achievements={achievements} />
         </Grid>
       </Grid>
@@ -342,7 +342,7 @@ class Mockup extends PureComponent<Props, {
             </Grid>
           </Grid>
           {employers.map((employer: EmployerType) => (
-            <Grid item key={employer.website} md={10} lg={8}>
+            <Grid item key={employer.website} lg={10}>
               <Typography variant="subheading" paragraph>{employer.name}</Typography>
               {projects
                 .filter(project => project.employerWebsite === employer.website)
