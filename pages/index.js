@@ -8,6 +8,7 @@ import Summary from '../app/summary';
 import Employers from '../app/employers';
 import withLayout from '../lib/with-layout';
 
+
 type Props = {
   +titleName: string,
 }
@@ -40,7 +41,6 @@ class Index extends PureComponent<Props> {
     );
   }
 }
-
 function mapStateToProps(state) {
   const { summary } = state;
   return {

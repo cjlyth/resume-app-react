@@ -2,7 +2,8 @@
 import axios from 'axios';
 import type { Dispatch, ThunkAction, ReduxState, GetState } from '../../lib/types';
 import { app } from '../../lib/config';
-
+import utils from '../utils';
+import type { EmployerInfo } from '../../lib/types/types';
 
 const API_URI = '/employers.json';
 
@@ -12,10 +13,16 @@ const shouldFetchEmployers = (s: ReduxState): boolean => (
 );
 
 export const fetchEmployerData = (
-  employerUri: string,
+  employer: EmployerInfo,
   URL_BASE: string = app.resumeDataAPIUrl,
 ): ThunkAction => async (dispatch: Dispatch) => {
-  dispatch({ type: 'EMPLOYER_REQUESTING', employerUri });
+  const link = (rel: string) => utils.getLinkRelation(employer.links, rel);
+  const employerUri = link('self');
+  dispatch({
+    type: 'EMPLOYER_REQUESTING',
+    employerWebsite: link('website'),
+    employerUri,
+  });
   try {
     const { data } = await axios.get(`${URL_BASE}/${employerUri}`);
     dispatch({ type: 'EMPLOYER_SUCCESS', employerUri, data });
@@ -31,8 +38,8 @@ export const fetchEmployersData = (
   dispatch({ type: 'EMPLOYERS_REQUESTING', employersUri });
   try {
     const { data } = await axios.get(`${URL_BASE}/${employersUri}`);
-
     dispatch({ type: 'EMPLOYERS_SUCCESS', employersUri, data: data.employers });
+    data.employers.forEach((employer: EmployerInfo) => dispatch(fetchEmployerData(employer)));
   } catch (err) {
     dispatch({ type: 'EMPLOYERS_FAILURE', employersUri, err: err.message });
   }
