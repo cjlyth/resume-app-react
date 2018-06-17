@@ -11,6 +11,7 @@ import { fetchEmployersIfNeeded } from '../app/employers/employers-actions';
 type Props = {
   +titleName: string,
   +settingsOpen: boolean,
+  +fetchEmployers: Function,
 }
 
 class Index extends PureComponent<Props> {
