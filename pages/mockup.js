@@ -3,14 +3,12 @@ import React, { PureComponent, Fragment } from 'react';
 import Head from 'next/head';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
-import sid from 'shortid';
 
 import withLayout from '../lib/with-layout';
 import SharedStyles from '../lib/SharedStyles';
 
 import Summary from '../components/summary';
-import Employer from '../components/employer';
-import ProjectCard from '../components/project-card';
+import Employers from '../components/employers';
 
 import type {
   ProjectType,
@@ -161,7 +159,7 @@ class Mockup extends PureComponent<Props, {
 
   render() {
     const {
-      summary, projects, employers,
+      summary,
     } = this.props;
     const { settingsOpen } = this.state;
 
@@ -181,23 +179,12 @@ class Mockup extends PureComponent<Props, {
         >
           <Grid item>
             <Summary
-              fetchSummary={() => { }}
               settingsOpen={settingsOpen}
               {...summary}
               toggleSettings={this.toggleSettings}
             />
           </Grid>
-          {employers.map((employer: EmployerType) => (
-            <Employer
-              key={sid.generate()}
-              {...employer}
-              projects={projects}
-              ProjectComponent={ProjectCard}
-            />
-          ))}
-          <Grid item>
-            <p>settingsOpen: { String(settingsOpen) }</p>
-          </Grid>
+          <Employers {...this.props} />
         </Grid>
       </Fragment>
     );

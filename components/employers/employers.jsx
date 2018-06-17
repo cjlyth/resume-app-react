@@ -1,19 +1,22 @@
 // @flow
 import React, { Fragment, PureComponent } from 'react';
 import sid from 'shortid';
-import Employer from '../employer';
 
-import type { EmployerType } from '../../lib/types';
+import Employer from '../employer';
 import ProjectCard from '../project-card';
+
+import type { EmployerType, ProjectType } from '../../lib/types';
 
 type Props = {
   +employers: Array<EmployerType>,
+  +projects: Array<ProjectType>,
   +fetchEmployers: Function,
 };
 
 class Employers extends PureComponent<Props> {
   static defaultProps = {
     employers: [],
+    projects: [],
     fetchEmployers: () => { },
   };
 
@@ -25,6 +28,7 @@ class Employers extends PureComponent<Props> {
   render() {
     const {
       employers,
+      projects,
     } = this.props;
     return (
       <Fragment>
@@ -32,7 +36,7 @@ class Employers extends PureComponent<Props> {
           <Employer
             key={sid.generate()}
             {...employer}
-            projects={[]}
+            projects={projects}
             ProjectComponent={ProjectCard}
           />
         ))}

@@ -71,6 +71,9 @@ const SummaryButtons = ({
 );
 
 class Summary extends PureComponent<Props> {
+  static defaultProps = {
+    fetchSummary: () => { },
+  };
   componentDidMount() {
     const { fetchSummary } = this.props;
     fetchSummary();
