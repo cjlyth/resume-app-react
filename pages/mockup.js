@@ -181,6 +181,7 @@ class Mockup extends PureComponent<Props, {
         >
           <Grid item>
             <Summary
+              fetchSummary={() => { }}
               settingsOpen={settingsOpen}
               {...summary}
               toggleSettings={this.toggleSettings}
