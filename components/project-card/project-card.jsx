@@ -1,5 +1,7 @@
 // @flow
 import React, { Fragment } from 'react';
+import type { Node } from 'react';
+
 import sid from 'shortid';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -48,7 +50,7 @@ const ProjectCard = ({
   roles = [],
   responsibilities = [],
   achievements = [],
-}: ProjectType) => (
+}: ProjectType): Node => (
   <Card>
     <CardHeader
       avatar={

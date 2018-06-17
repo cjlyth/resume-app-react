@@ -2,18 +2,20 @@
 import React, { PureComponent, Fragment } from 'react';
 import Head from 'next/head';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-
-import shortid from 'shortid';
+import sid from 'shortid';
 
 import withLayout from '../lib/with-layout';
 import SharedStyles from '../lib/SharedStyles';
-import ProjectCard from '../components/project-card';
+
 import Summary from '../components/summary';
+import Employer from '../components/employer';
+import ProjectCard from '../components/project-card';
+
 import type {
   ProjectType,
   SymmaryType,
+  EmployerType,
 } from '../lib/types';
 
 const styles = theme => ({
@@ -37,11 +39,6 @@ const styles = theme => ({
     padding: '0',
   },
 });
-
-type EmployerType = {
-  name?: string,
-  website?: string,
-};
 
 
 type Props = {
@@ -164,7 +161,7 @@ class Mockup extends PureComponent<Props, {
 
   render() {
     const {
-      summary, projects, classes, employers,
+      summary, projects, employers,
     } = this.props;
     const { settingsOpen } = this.state;
 
@@ -190,20 +187,12 @@ class Mockup extends PureComponent<Props, {
             />
           </Grid>
           {employers.map((employer: EmployerType) => (
-            <Grid item key={employer.website} lg={10}>
-              <Typography variant="subheading" paragraph>{employer.name}</Typography>
-              {projects
-                .filter(project => project.employerWebsite === employer.website)
-                .map(project => (
-                  <ProjectCard
-                    key={shortid.generate()}
-                    {...project}
-                    employer={employer}
-                    classes={classes}
-                  />
-                ))
-              }
-            </Grid>
+            <Employer
+              key={sid.generate()}
+              {...employer}
+              projects={projects}
+              ProjectComponent={ProjectCard}
+            />
           ))}
           <Grid item>
             <p>settingsOpen: { String(settingsOpen) }</p>
