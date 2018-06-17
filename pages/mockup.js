@@ -9,6 +9,8 @@ import SharedStyles from '../lib/SharedStyles';
 
 import Summary from '../components/summary';
 import Employers from '../components/employers';
+import Employer from '../components/employer';
+import ProjectCard from '../components/project-card';
 
 import type {
   ProjectType,
@@ -184,7 +186,7 @@ class Mockup extends PureComponent<Props, {
               toggleSettings={this.toggleSettings}
             />
           </Grid>
-          <Employers {...this.props} />
+          <Employers {...this.props} EmployerComponent={Employer} ProjectComponent={ProjectCard} />
         </Grid>
       </Fragment>
     );

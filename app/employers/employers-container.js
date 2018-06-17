@@ -12,12 +12,17 @@ const mapDispatchToProps = dispatch => ({
 });
 
 function mapStateToProps(state) {
-  const { employers }: {
+  const { employers, projects }: {
+    projects: {},
     employers: {
       data: Array<EmployerInfo>
     }
   } = state;
+  const projectArray = Object.keys(projects).map((k: string) =>
+    (projects[k].data ? projects[k].data.map(project =>
+      Object.assign({}, project, { employerWebsite: k })) : []));
   return {
+    projects: [].concat(...projectArray),
     employers: employers.data.map(employer => ({
       name: employer.description,
       website: utils.getLinkRelation(employer.links, 'website'),
