@@ -1,9 +1,12 @@
 // @flow
 import { connect } from 'react-redux';
-import Summary from './summary';
-import { fetchSummaryIfNeeded } from './actions';
+import Summary from '../../components/summary';
+import { fetchSummaryIfNeeded, toggleSettings } from './summary-actions';
 
 const mapDispatchToProps = dispatch => ({
+  toggleSettings: () => {
+    dispatch(toggleSettings());
+  },
   fetchSummary: () => {
     dispatch(fetchSummaryIfNeeded());
   },
@@ -11,7 +14,7 @@ const mapDispatchToProps = dispatch => ({
 
 function mapStateToProps(state) {
   const { summary } = state;
-  return { summary };
+  return { ...summary.data };
 }
 
 export default connect(

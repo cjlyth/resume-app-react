@@ -1,9 +1,9 @@
-// @flow
+
 import axios from 'axios';
 import type { Dispatch, ThunkAction, ReduxState, GetState } from '../../lib/types';
+import { app } from '../../lib/config';
 
 
-const API_URI_BASE = 'https://cjlyth.github.io/resume-data/v1';
 const API_URI = '/employers.json';
 
 const shouldFetchEmployers = (s: ReduxState): boolean => (
@@ -11,10 +11,9 @@ const shouldFetchEmployers = (s: ReduxState): boolean => (
   s.employers.readyStatus !== 'EMPLOYERS_REQUESTING'
 );
 
-
 export const fetchEmployerData = (
   employerUri: string,
-  URL_BASE: string = API_URI_BASE,
+  URL_BASE: string = app.resumeDataAPIUrl,
 ): ThunkAction => async (dispatch: Dispatch) => {
   dispatch({ type: 'EMPLOYER_REQUESTING', employerUri });
   try {
@@ -27,7 +26,7 @@ export const fetchEmployerData = (
 
 export const fetchEmployersData = (
   employersUri: string = API_URI,
-  URL_BASE: string = API_URI_BASE,
+  URL_BASE: string = app.resumeDataAPIUrl,
 ): ThunkAction => async (dispatch: Dispatch) => {
   dispatch({ type: 'EMPLOYERS_REQUESTING', employersUri });
   try {

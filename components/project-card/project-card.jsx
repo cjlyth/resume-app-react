@@ -13,7 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-import { DateRange } from '../../app/utils';
+import DateRange from '../date-range';
 
 import type { ProjectType } from '../../lib/types/index';
 

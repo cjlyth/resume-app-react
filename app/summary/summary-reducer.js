@@ -2,19 +2,20 @@
 
 import fp from 'lodash/fp';
 
-import type { Summary, Action } from '../types';
+import type { SummaryType, FetchType, Action } from '../../lib/types/index';
 
-type State = Summary;
+type State = FetchType & {
+  data: SummaryType
+};
 
 const initialState = {
   readyStatus: 'SUMMARY_INVALID',
   err: null,
   data: {
-    name: '',
-    nameSmall: '',
-    title: '',
-    titleSmall: '',
-    links: [],
+    fullName: '',
+    currentTitle: '',
+    linkedInUrl: '',
+    avatarUrl: '',
   },
 };
 

@@ -1,50 +1,47 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import Head from 'next/head';
+import Grid from '@material-ui/core/Grid';
 
 import SharedStyles from '../lib/SharedStyles';
 import Summary from '../app/summary';
-import Employers from '../app/employers';
 import withLayout from '../lib/with-layout';
-import { fetchSummaryIfNeeded } from '../app/summary/actions';
-
 
 type Props = {
-  +fetchSummary: Function,
-  +nameSmall: string
+  +titleName: string,
+  +settingsOpen: boolean,
 }
 
 class Index extends PureComponent<Props> {
-  componentDidMount() {
-    const { fetchSummary } = this.props;
-    fetchSummary();
-  }
   render() {
     return (
       <Fragment>
         <Head>
-          <title>{this.props.nameSmall} - Resume</title>
+          <title>{this.props.titleName} - Resume</title>
           <meta name="description" content="description for indexing bots" />
         </Head>
-        <Summary style={SharedStyles.styleFullWidth} />
-        <Employers style={SharedStyles.styleFullWidth} />
+        <Grid
+          container
+          spacing={16}
+          direction="column"
+          alignItems="center"
+          justify="center"
+          style={SharedStyles.styleFullWidth}
+        >
+          <Grid item>
+            <Summary style={SharedStyles.styleFullWidth} />
+          </Grid>
+          <Grid item>
+            <p>settingsOpen: { String(this.props.settingsOpen) }</p>
+          </Grid>
+        </Grid>
       </Fragment>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  fetchSummary: () => {
-    dispatch(fetchSummaryIfNeeded());
-  },
-});
 function mapStateToProps(state) {
-  const {
-    nameSmall,
-  } = state.summary.data;
-  return { nameSmall };
+  const { summary, settings } = state;
+  return { titleName: summary.data.fullName, settingsOpen: settings.settingsOpen };
 }
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(withLayout(Index));
+export default connect(mapStateToProps)(withLayout(Index));

@@ -14,7 +14,7 @@ import ProjectCard from '../components/project-card';
 
 import type {
   ProjectType,
-  SymmaryType,
+  SummaryType,
   EmployerType,
 } from '../lib/types';
 
@@ -42,7 +42,7 @@ const styles = theme => ({
 
 
 type Props = {
-  summary: SymmaryType,
+  summary: SummaryType,
   employers: Array<EmployerType>,
   classes: Object,
   projects: Array<ProjectType>,
