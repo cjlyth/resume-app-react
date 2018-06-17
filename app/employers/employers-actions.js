@@ -18,16 +18,27 @@ export const fetchEmployerData = (
 ): ThunkAction => async (dispatch: Dispatch) => {
   const link = (rel: string) => utils.getLinkRelation(employer.links, rel);
   const employerUri = link('self');
+  const employerWebsite = link('website');
   dispatch({
     type: 'EMPLOYER_REQUESTING',
-    employerWebsite: link('website'),
+    employerWebsite,
     employerUri,
   });
   try {
     const { data } = await axios.get(`${URL_BASE}/${employerUri}`);
-    dispatch({ type: 'EMPLOYER_SUCCESS', employerUri, data });
+    dispatch({
+      type: 'EMPLOYER_SUCCESS',
+      employerWebsite,
+      employerUri,
+      data,
+    });
   } catch (err) {
-    dispatch({ type: 'EMPLOYER_FAILURE', employerUri, err: err.message });
+    dispatch({
+      type: 'EMPLOYER_FAILURE',
+      employerWebsite,
+      employerUri,
+      err: err.message,
+    });
   }
 };
 
