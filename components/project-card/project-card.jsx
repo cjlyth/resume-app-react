@@ -22,10 +22,10 @@ const ResponsibilityContent = ({ responsibilities }:{
 }) => (
   <Fragment>
     {responsibilities.length > 0 && (
-      <Typography>Responsibilities:</Typography>
+      <Typography variant="caption">Responsibilities:</Typography>
     )}
     {responsibilities.map(r => (
-      <Typography key={sid.generate()}> - {r}</Typography>
+      <Typography key={sid.generate()} variant="body1"> - {r}</Typography>
     ))}
   </Fragment>
 );
@@ -35,10 +35,10 @@ const AchievementContent = ({ achievements }:{
 }) => (
   <Fragment>
     {achievements.length > 0 && (
-      <Typography>Achievements:</Typography>
+      <Typography variant="caption">Achievements:</Typography>
     )}
     {achievements.map(a => (
-      <Typography key={sid.generate()}> - {a}</Typography>
+      <Typography key={sid.generate()} variant="body1"> - {a}</Typography>
     ))}
   </Fragment>
 );
