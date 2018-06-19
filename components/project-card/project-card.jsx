@@ -25,7 +25,7 @@ const ResponsibilityContent = ({ responsibilities }:{
       <Typography variant="caption">Responsibilities:</Typography>
     )}
     {responsibilities.map(r => (
-      <Typography key={sid.generate()} variant="body1"> - {r}</Typography>
+      <Typography key={sid.generate()} variant="body1" dangerouslySetInnerHTML={{ __html: r }} />
     ))}
   </Fragment>
 );
@@ -38,7 +38,7 @@ const AchievementContent = ({ achievements }:{
       <Typography variant="caption">Achievements:</Typography>
     )}
     {achievements.map(a => (
-      <Typography key={sid.generate()} variant="body1"> - {a}</Typography>
+      <Typography key={sid.generate()} variant="body1" dangerouslySetInnerHTML={{ __html: a }} />
     ))}
   </Fragment>
 );
@@ -84,12 +84,16 @@ const ProjectCard = ({
     </CardContent>
     <CardContent>
       <Grid container spacing={16}>
-        <Grid item xs={12} md={6}>
-          <ResponsibilityContent responsibilities={responsibilities} />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <AchievementContent achievements={achievements} />
-        </Grid>
+        { responsibilities && responsibilities.length > 0 &&
+          <Grid item xs={12} md={6}>
+            <ResponsibilityContent responsibilities={responsibilities} />
+          </Grid>
+        }
+        { achievements && achievements.length > 0 &&
+          <Grid item xs={12} md={6}>
+            <AchievementContent achievements={achievements} />
+          </Grid>
+        }
       </Grid>
     </CardContent>
   </Card>
