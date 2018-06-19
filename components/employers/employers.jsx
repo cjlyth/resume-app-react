@@ -26,29 +26,22 @@ class Employers extends PureComponent<Props> {
   }
 
   render() {
-    const {
-      employers,
-      projects,
-    } = this.props;
+    const { employers, projects } = this.props;
     return (
       <Fragment>
         {employers.map((employer: EmployerType) => {
           const employerProjects: Array<ProjectType> = projects
             .filter(project => project.employerWebsite === employer.website);
-
-          return (<Employer
-            key={sid.generate()}
-            {...employer}
-            employerProjects
-          >
-            {employerProjects.map(project => (
-              <ProjectCard
-                key={sid.generate()}
-                {...project}
-              />
-            ))}
-          </Employer>
-          )})}
+          return employerProjects.length > 0
+            ? (
+              <Employer key={sid.generate()} {...employer}>
+                {employerProjects.map(project => (
+                  <ProjectCard key={sid.generate()} {...project}/>
+                ))}
+              </Employer>
+              )
+            : '';
+        })}
       </Fragment>
     );
   }
