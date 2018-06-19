@@ -29,7 +29,10 @@ export default (state:State = {}, action: Action): State => {
       return fp.assign(state, fp.fromPairs([[action.employerWebsite, {
         readyStatus: 'EMPLOYER_SUCCESS',
         err: initialState.err,
-        data: action.data.projects,
+        data: action.data.projects.map(project => ({
+          employerAvatar: action.employerAvatar,
+          ...project,
+        })),
       }]]));
     default:
       return state;

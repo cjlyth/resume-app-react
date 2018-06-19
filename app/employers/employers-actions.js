@@ -19,10 +19,15 @@ export const fetchEmployerData = (
   const link = (rel: string) => utils.getLinkRelation(employer.links, rel);
   const employerUri = link('self');
   const employerWebsite = link('website');
+  const employerLogo = link('logo');
+  const employerAvatar = employerLogo.startsWith('http')
+    ? employerLogo
+    : `${URL_BASE}/${employerLogo}`;
   dispatch({
     type: 'EMPLOYER_REQUESTING',
     employerWebsite,
     employerUri,
+    employerAvatar,
   });
   try {
     const { data } = await axios.get(`${URL_BASE}/${employerUri}`);
@@ -30,6 +35,7 @@ export const fetchEmployerData = (
       type: 'EMPLOYER_SUCCESS',
       employerWebsite,
       employerUri,
+      employerAvatar,
       data,
     });
   } catch (err) {
@@ -37,6 +43,7 @@ export const fetchEmployerData = (
       type: 'EMPLOYER_FAILURE',
       employerWebsite,
       employerUri,
+      employerAvatar,
       err: err.message,
     });
   }

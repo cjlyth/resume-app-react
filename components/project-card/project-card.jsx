@@ -44,6 +44,7 @@ const AchievementContent = ({ achievements }:{
 );
 
 const ProjectCard = ({
+  employerAvatar = '',
   projectName = '',
   dates = [],
   objective = [],
@@ -54,9 +55,7 @@ const ProjectCard = ({
   <Card>
     <CardHeader
       avatar={
-        <Avatar aria-label={projectName} >
-          <StoreIcon />
-        </Avatar>
+        <Avatar aria-label={projectName} src={employerAvatar} />
       }
       action={
         <IconButton>
