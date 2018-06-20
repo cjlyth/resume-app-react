@@ -1,1 +1,1 @@
-web: npx yarn start
+web: npx yarn build && npx yarn start
