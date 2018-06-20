@@ -31,7 +31,7 @@ class Index extends PureComponent<Props> {
           justify="center"
           style={SharedStyles.styleFullWidth}
         >
-          <Grid item>
+          <Grid item           md={8}>
             <Summary />
           </Grid>
           <Employers />

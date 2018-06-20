@@ -52,7 +52,7 @@ const ProjectCard = ({
   responsibilities = [],
   achievements = [],
 }: ProjectType): Node => (
-  <Card>
+  <Card style={{ width: '100%' }}>
     <CardHeader
       avatar={
         <Avatar aria-label={projectName} src={employerAvatar} />
@@ -84,12 +84,12 @@ const ProjectCard = ({
     <CardContent>
       <Grid container spacing={16}>
         { responsibilities && responsibilities.length > 0 &&
-          <Grid item xs={12} md={6}>
+          <Grid item >
             <ResponsibilityContent responsibilities={responsibilities} />
           </Grid>
         }
         { achievements && achievements.length > 0 &&
-          <Grid item xs={12} md={6}>
+          <Grid item >
             <AchievementContent achievements={achievements} />
           </Grid>
         }

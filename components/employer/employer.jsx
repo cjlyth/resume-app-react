@@ -14,7 +14,7 @@ type Props = EmployerType & {
 const Employer = ({
   name, website, children,
 }:Props) => (
-  <Grid item key={website} lg={10}>
+  <Grid item key={website} lg={8}>
     <Typography variant="subheading" paragraph>{name}
       <Typography variant="caption" gutterBottom>{website}</Typography>
     </Typography>
