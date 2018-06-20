@@ -1,0 +1,1 @@
+web: npx yarn start
