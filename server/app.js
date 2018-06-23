@@ -1,12 +1,7 @@
-const { typeDefs, resolvers } = require('../lib/types/gql-schema');
-
-const { buildSchema } = require('graphql');
 
 const express = require('express');
 const next = require('next');
-const graphqlHTTP = require('express-graphql');
-
-const schema = buildSchema(typeDefs);
+const graphql = require('./graphql');
 
 require('dotenv').config();
 
@@ -20,13 +15,7 @@ const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
   const server = express();
-
-  server.use('/api', graphqlHTTP({
-    rootValue: resolvers,
-    schema,
-    graphiql: true,
-    pretty: true,
-  }));
+  graphql(server);
 
   server.get('*', (req, res) => handle(req, res));
 
