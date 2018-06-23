@@ -7,20 +7,32 @@ import NProgress from 'nprogress';
 import withReduxStore from '../lib/with-redux-store';
 
 axios.interceptors.request.use((config) => {
-  NProgress.start();
-  return config;
+  try {
+    NProgress.start();
+  } finally {
+    return config;
+  }
 }, (error) => {
-  NProgress.done();
-  return Promise.reject(error);
+  try {
+    NProgress.done();
+  } finally {
+    return Promise.reject(error);
+  }
 });
 
 axios.interceptors.response.use((response) => {
-  NProgress.done();
-  return response;
+  try {
+    NProgress.done();
+  } finally {
+    return response;
+  }
 }, (error) => {
   // Do something with response error
-  NProgress.done();
-  return Promise.reject(error);
+  try {
+    NProgress.done();
+  } finally {
+    return Promise.reject(error);
+  }
 });
 
 class ResumeApp extends App {

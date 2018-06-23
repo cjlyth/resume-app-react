@@ -17,10 +17,13 @@
     "@material-ui/core": "^1.2.0",
     "@material-ui/icons": "^1.1.0",
     "axios": "^0.18.0",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "cowsay-browser": "^1.1.8",
     "cross-fetch": "^2.2.1",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
+    "express-graphql": "^0.6.12",
+    "graphql": "^0.13.2",
     "lodash": "^4.17.10",
     "next": "6.0.4-canary.3",
     "nprogress": "^0.2.0",
@@ -34,13 +37,10 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "reduxsauce": "^1.0.0",
-    "shortid": "^2.2.8",
-    "babel-plugin-transform-flow-strip-types": "^6.22.0"
-
+    "shortid": "^2.2.8"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.3",
-
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.11.0",
