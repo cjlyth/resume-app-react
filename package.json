@@ -16,6 +16,7 @@
   "dependencies": {
     "@material-ui/core": "^1.2.0",
     "@material-ui/icons": "^1.1.0",
+    "apollo-server": "^0.3.3",
     "axios": "^0.18.0",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "cowsay-browser": "^1.1.8",

@@ -1,48 +1,12 @@
-const { buildSchema } = require('graphql');
+const { typeDefs, resolvers } = require('../lib/types/gql-schema');
 
-const axios = require('axios');
+const { buildSchema } = require('graphql');
 
 const express = require('express');
 const next = require('next');
 const graphqlHTTP = require('express-graphql');
 
-
-const schema = buildSchema(`
-  type SummaryData {
-    name: String,
-    nameSmall: String,
-    title: String,
-    titleSmall: String,
-    links: [LinkRelation]
-  }
-  
-  type LinkRelation {
-    rel: String,
-    href: String
-  }
-  
-  type User {
-    id: ID,
-    name: String,
-    nameSmall: String,
-    title: String,
-    titleSmall: String,
-    birthday: Birthday,
-  }
-
-  type Birthday {
-    month: String,
-  }  
-  type Query {
-    me(nameSmall: String): SummaryData,
-    hello: String,
-  }
-`);
-const root = {
-  me: async () =>
-    axios.get('https://cjlyth.gitlab.io/resume-data/v1/summary.json')
-      .then(({ data }) => data),
-};
+const schema = buildSchema(typeDefs);
 
 require('dotenv').config();
 
@@ -58,7 +22,7 @@ app.prepare().then(() => {
   const server = express();
 
   server.use('/api', graphqlHTTP({
-    rootValue: root,
+    rootValue: resolvers,
     schema,
     graphiql: true,
     pretty: true,
