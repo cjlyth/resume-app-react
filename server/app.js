@@ -39,13 +39,9 @@ const schema = buildSchema(`
   }
 `);
 const root = {
-  me: async ({nameSmall}) => await axios.get('https://cjlyth.gitlab.io/resume-data/v1/summary.json')
-    .then(({ data }) => {
-      console.log('data', data);
-      console.log('nameSmall', nameSmall);
-      return data;
-    }),
-
+  me: async () =>
+    axios.get('https://cjlyth.gitlab.io/resume-data/v1/summary.json')
+      .then(({ data }) => data),
 };
 
 require('dotenv').config();
