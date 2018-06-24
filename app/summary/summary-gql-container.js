@@ -32,6 +32,7 @@ const SummaryData = () => (
           avatarUrl={getLink('avatar')}
           linkedInUrl={getLink('linkedin')}
           {...rest}
+          toggleSettings={() => {}}
         />
       );
     }}
