@@ -5,13 +5,7 @@ import { Query } from 'react-apollo';
 
 import Summary from '../../components/summary';
 import utils from '../utils';
-import { app } from '../../lib/config';
-
-
-const linkGetter = links => (rel: string) => {
-  const l = utils.getLinkRelation(links, rel);
-  return l.startsWith('http') ? l : `${app.resumeDataAPIUrl}/${l}`;
-};
+import { Loading, Error } from '../loading';
 
 const SummaryData = () => (
   <Query
@@ -29,10 +23,10 @@ const SummaryData = () => (
     `}
   >
     {({ loading, error, data }) => {
-      if (loading) return <p>Loading...</p>;
-      if (error) return <p>Error :(</p>;
+      if (loading) return <Loading>Loading summary...</Loading>;
+      if (error) return <Error>Error loading summary</Error>;
       const { links, ...rest } = data.summary;
-      const getLink = linkGetter(links);
+      const getLink = utils.linkGetter(links);
       return (
         <Summary
           avatarUrl={getLink('avatar')}
